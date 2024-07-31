@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
+      - name: Install Dependencies
+        run: npm install
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         env:
