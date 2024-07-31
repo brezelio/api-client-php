@@ -1,0 +1,35 @@
+name: Action For Semantic Release
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  release:
+    # You may pin to the exact commit or the version.
+    # uses: cycjimmy/semantic-release-action@cb425203a562475bca039ba4dbf90c7f9ac790f4
+    uses: cycjimmy/semantic-release-action@v4.1.0
+    with:
+      # Specify specifying version range for semantic-release. If no version range is specified, latest version will be used by default
+      # semantic_version: # optional
+      # The branches on which releases should happen. It will override the branches attribute in your configuration file. Support for semantic-release above v16. See https://semantic-release.gitbook.io/semantic-release/usage/configuration#branches for more information.
+      # branches: # optional
+      # The branch on which releases should happen. It will override the branch attribute in your configuration file. If the attribute is not configured on both sides, the default is master. Support for semantic-release older than v16.
+      branch: main
+      # Extra plugins for pre-install. You can also specify specifying version range for the extra plugins if you prefer.
+      # extra_plugins: # optional
+      # Whether to run semantic release in `dry-run` mode. It will override the dryRun attribute in your configuration file
+      # dry_run: # optional
+      # Whether to run semantic release with CI support (default: true). It will override the ci attribute in your configuration file
+      # ci: # optional
+      # One or several sharable configurations, https://semantic-release.gitbook.io/semantic-release/usage/configuration#extends
+      # extends: # optional
+      # Specify another working directory for semantic release. Default one is provided by github.
+      # working_directory: # optional
+      # The default tag format on semantic-release is v{version}. You can override that behavior using this option.
+      # tag_format: # optional
+      # The Git repository url. If no repository url specified, current repository will be used by default.
+      # repository_url: # optional
+          
