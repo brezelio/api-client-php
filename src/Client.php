@@ -15,7 +15,7 @@ class Client
     private string $system;
 
     /**
-     * Map of module names to class names extending Entity.
+     * Map of module names to class names or factory functions.
      *
      * @var array<string, string|callable>
      */
