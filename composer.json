@@ -1,9 +1,12 @@
 {
     "name": "brezel/api-client",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "type": "library",
     "description": "Brezel API Client",
-    "keywords": ["api", "client"],
+    "keywords": [
+        "api",
+        "client"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2.0",
