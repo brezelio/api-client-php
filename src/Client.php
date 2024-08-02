@@ -22,6 +22,8 @@ class Client
     private array $entityMap = [];
     private string $apiUrl;
 
+    public ?string $shareUrl = null;
+
     public function __construct(string $apiUrl, string $system, ?string $apiKey = null, ?string $bearerToken = null)
     {
         $this->client = new GuzzleClient(['base_uri' => $apiUrl]);
@@ -145,7 +147,7 @@ class Client
      */
     public function getSharedFileURL(string $shareToken): ?string
     {
-        return $this->getSystemURL(['shared', $shareToken]);
+        return $this->getSystemURL(['shared', $shareToken], $this->shareUrl);
     }
 
     /**
@@ -203,10 +205,10 @@ class Client
         return $this->request($method, [$this->system, ...$path], $data, $query);
     }
 
-    private function getSystemURL(string|array $path): string
+    private function getSystemURL(string|array $path, ?string $apiUrl = null): string
     {
         $path = is_array($path) ? $path : [$path];
-        return $this->apiUrl . '/' . $this->system . '/' . implode('/', $path);
+        return ($apiUrl ?? $this->apiUrl) . '/' . $this->system . '/' . implode('/', $path);
     }
 
     /**
@@ -239,5 +241,15 @@ class Client
     private function deleteSystemRequest(string|array $path): array
     {
         return $this->systemRequest('DELETE', $path);
+    }
+
+    public function getShareUrl(): ?string
+    {
+        return $this->shareUrl;
+    }
+
+    public function setShareUrl(?string $shareUrl): void
+    {
+        $this->shareUrl = $shareUrl;
     }
 }
