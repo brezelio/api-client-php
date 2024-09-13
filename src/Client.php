@@ -83,12 +83,14 @@ class Client
         array $filters = [],
         ?int $results = null,
         array $query = [],
+        array $with = []
     ): array
     {
         $response = $this->getSystemRequest('modules/' . $module . '/resources', array_merge($query, [
             'page' => $page,
             'pre_filters' => json_encode($filters),
             'results' => $results,
+            'with' => $with ? json_encode($with) : null,
         ]));
         $data = $response['data'] ?? [];
         return array_map(fn($attributes) => $this->initEntity($module, $attributes), $data);
