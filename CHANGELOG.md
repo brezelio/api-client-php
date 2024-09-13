@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/brezelio/api-client-php/compare/v1.0.2...v1.1.0) (2024-09-13)
+
+
+### Features
+
+* add "with" parameter ([d5c6c9f](https://github.com/brezelio/api-client-php/commit/d5c6c9f5a50894c69317259e8d94c6e77c0890da))
+
 ## [1.0.2](https://github.com/brezelio/api-client-php/compare/v1.0.1...v1.0.2) (2024-09-03)
 
 

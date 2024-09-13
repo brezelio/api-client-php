@@ -1,6 +1,6 @@
 {
     "name": "brezel/api-client",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "type": "library",
     "description": "Brezel API Client",
     "keywords": [
