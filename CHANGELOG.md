@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/brezelio/api-client-php/compare/v1.1.0...v1.1.1) (2024-09-17)
+
+
+### Bug Fixes
+
+* pass guzzle exception code to api exception ([669925d](https://github.com/brezelio/api-client-php/commit/669925defc56b8bb59dbc55f263cae2f08dab7d3))
+
 # [1.1.0](https://github.com/brezelio/api-client-php/compare/v1.0.2...v1.1.0) (2024-09-13)
 
 
