@@ -181,7 +181,9 @@ class Client
         try {
             $response = $this->client->request($method, $uri, $options);
             return $this->parseResponse($response);
-        } catch (GuzzleException|JsonException $e) {
+        } catch (GuzzleException $e) {
+            throw new ApiException('API Request failed: ' . $e->getMessage(), $e->getCode(), $e);
+        } catch (JsonException $e) {
             throw new ApiException('API Request failed: ' . $e->getMessage());
         }
     }
