@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/brezelio/api-client-php/compare/v1.1.1...v1.1.2) (2024-09-17)
+
+
+### Bug Fixes
+
+* correctly return null if 404 exception is thrown ([dc33c6a](https://github.com/brezelio/api-client-php/commit/dc33c6a782b2a0ee490e67b5e188b39716d2faea))
+
 ## [1.1.1](https://github.com/brezelio/api-client-php/compare/v1.1.0...v1.1.1) (2024-09-17)
 
 
