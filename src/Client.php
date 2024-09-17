@@ -24,6 +24,8 @@ class Client
 
     public ?string $shareUrl = null;
 
+    public ?int $impersonateUserId = null;
+
     public function __construct(string $apiUrl, string $system, ?string $apiKey = null, ?string $bearerToken = null)
     {
         $this->client = new GuzzleClient(['base_uri' => $apiUrl]);
@@ -31,6 +33,31 @@ class Client
         $this->bearerToken = $bearerToken;
         $this->system = $system;
         $this->apiUrl = $apiUrl;
+    }
+
+    /**
+     * Return a new client with the impersonated user.
+     *
+     * @param int $userId
+     * @return $this
+     */
+    public function impersonated(int $userId): self
+    {
+        $client = clone $this;
+        $client->impersonate($userId);
+        return $client;
+    }
+
+    /**
+     * Impersonate a user.
+     *
+     * @param int $userId
+     * @return $this
+     */
+    public function impersonate(int $userId): self
+    {
+        $this->impersonateUserId = $userId;
+        return $this;
     }
 
     public function registerModule(string $moduleName, string|callable $entityClass): void
@@ -84,8 +111,7 @@ class Client
         ?int $results = null,
         array $query = [],
         array $with = []
-    ): array
-    {
+    ): array {
         $response = $this->getSystemRequest('modules/' . $module . '/resources', array_merge($query, [
             'page' => $page,
             'pre_filters' => json_encode($filters),
@@ -105,8 +131,15 @@ class Client
      */
     public function getEntity(string $module, int $id): ?Entity
     {
-        $response = $this->getSystemRequest(['modules', $module, 'resources', $id]);
-        return $response ? $this->initEntity($module, $response) : null;
+        try {
+            $response = $this->getSystemRequest(['modules', $module, 'resources', $id]);
+        } catch (ApiException $e) {
+            if ($e->getCode() === 404) {
+                return null;
+            }
+            throw $e;
+        }
+        return $this->initEntity($module, $response);
     }
 
     /**
@@ -161,13 +194,16 @@ class Client
         array $data = [],
         array $query = [],
         array $options = []
-    ): array|string
-    {
+    ): array|string {
         $uri = is_array($path) ? implode('/', $path) : $path;
         if ($this->apiKey) {
             $options['headers']['X-API-Key'] = $this->apiKey;
         } elseif ($this->bearerToken) {
             $options['headers']['Authorization'] = 'Bearer ' . $this->bearerToken;
+        }
+
+        if ($this->impersonateUserId !== null) {
+            $options['headers']['X-Impersonate'] = $this->impersonateUserId;
         }
 
         if ($data && $method !== 'GET') {
@@ -203,8 +239,12 @@ class Client
     /**
      * @throws ApiException
      */
-    private function systemRequest(string $method, string|array $path, array $data = [], array $query = []): array|string
-    {
+    private function systemRequest(
+        string $method,
+        string|array $path,
+        array $data = [],
+        array $query = []
+    ): array|string {
         $path = is_array($path) ? $path : [$path];
         return $this->request($method, [$this->system, ...$path], $data, $query);
     }
