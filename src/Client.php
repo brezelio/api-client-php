@@ -161,6 +161,16 @@ class Client
     }
 
     /**
+     * Get the contents of a file.
+     *
+     * @throws ApiException
+     */
+    public function getFile(int $fileId): ?string
+    {
+        return $this->getSystemRequest(['files', $fileId]);
+    }
+
+    /**
      * @throws ApiException
      */
     public function webhook(string $event, ?string $module, ?int $entityId): array|string
