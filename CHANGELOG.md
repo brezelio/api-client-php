@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/brezelio/api-client-php/compare/v1.1.2...v1.2.0) (2024-10-30)
+
+
+### Features
+
+* add method to retrieve file contents ([45b672d](https://github.com/brezelio/api-client-php/commit/45b672d3fe66b1e629274951d451a36835126b88))
+
 ## [1.1.2](https://github.com/brezelio/api-client-php/compare/v1.1.1...v1.1.2) (2024-09-17)
 
 
